@@ -1,0 +1,12 @@
+body{
+    padding:10px;
+    margin:10px;
+    background:black;
+}
+#GameUi{
+    background-image: url("/Assets/Backgrounds/space01.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width:100%;
+    height:100%;
+}
