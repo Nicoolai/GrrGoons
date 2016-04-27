@@ -110,7 +110,6 @@ function collisionCallback (obj1, obj2) {
     obj1.kill();
     obj2.kill();
     deadGoons++;
-    goonsCount--;
 }
 
 function update() {
@@ -119,9 +118,9 @@ function update() {
     game.physics.arcade.collide(bullets, goons, collisionCallback, processCallback, this);
     
     //player updates
-    if (goonsCount < 10 && Math.random() > 0.95){
+    if (goonsCount < 10 && Math.random() > 0.97){
         // Spawn a goon.
-        var goon = new Goon(game, 800, 600);
+        var goon = new Goon(game);
         game.add.existing(goon);
         goons.push(goon);
         goonsCount++;
@@ -170,6 +169,6 @@ function fire() {
 }
 
 function init(){
-    game = new Phaser.Game(800, 600, Phaser.AUTO, "",
+    game = new Phaser.Game(800, 600, Phaser.AUTO, "gameUi",
         { preload: preload, create: create, update: update, render: render });    
 }
