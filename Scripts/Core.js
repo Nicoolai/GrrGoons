@@ -19,6 +19,8 @@ var goonsCount = 0;
 
 var explosions;
 
+var GameOver = false;
+
 function preload() {
     game.load.image("merlin", "Assets/Ships/Frigs/merlin.png");
     game.load.image("condor", "Assets/Ships/Frigs/condor.png");
@@ -118,13 +120,24 @@ function update() {
     game.physics.arcade.collide(bullets, goons, collisionCallback, processCallback, this);
     
     //player updates
-    if (Math.random() > (0.97 - (game.time.totalElapsedSeconds() / 100))){
-        // Spawn a goon.
-        var goon = new Goon(game);
-        game.add.existing(goon);
-        goons.push(goon);
-        goonsCount++;
+    if (!GameOver){
+        if (Math.random() > (0.97 - (game.time.totalElapsedSeconds() / 50))){
+            // Spawn a goon.
+            var goon = new Goon(game);
+            game.add.existing(goon);
+            goons.push(goon);
+            goonsCount++;
+        }    
     }
+    
+    if (goonsCount >100){
+        GameOver = true;
+        for (var idx=0;idx<goons.length;idx++){
+            var gn = goons[idx];
+            gn.kill();
+        }
+    }
+    
 
     if (leftKey.isDown)
     {
@@ -155,7 +168,11 @@ function update() {
 
 function render(){
     game.debug.text("Dead goons: " + deadGoons, 32, 32);
-    //game.debug.text("Time: " + game.time.totalElapsedSeconds(), 32, 64);
+    // game.debug.text("Live goons: " + goonsCount, 32, 64);
+    
+    if (GameOver){
+        game.debug.text("GAME OVER. The goons ran away.", 200, 200);
+    }
 }
 
 function fire() {
