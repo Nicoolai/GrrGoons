@@ -118,7 +118,7 @@ function update() {
     game.physics.arcade.collide(bullets, goons, collisionCallback, processCallback, this);
     
     //player updates
-    if (goonsCount < 10 && Math.random() > 0.97){
+    if (Math.random() > (0.97 - (game.time.totalElapsedSeconds() / 100))){
         // Spawn a goon.
         var goon = new Goon(game);
         game.add.existing(goon);
@@ -155,6 +155,7 @@ function update() {
 
 function render(){
     game.debug.text("Dead goons: " + deadGoons, 32, 32);
+    //game.debug.text("Time: " + game.time.totalElapsedSeconds(), 32, 64);
 }
 
 function fire() {
